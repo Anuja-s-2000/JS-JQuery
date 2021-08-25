@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>JQuery Assignment</title>
+    <style>
+        .button {
+            border-radius: 15px;
+            width: 150px;
+            height: 30px;
+            background-color: rgba(198, 10, 245);
+            border: none;
+            outline: none;
+            cursor: pointer;
+            margin-top: 10px;
+            margin-left: 45%;
+        }
+
+        .button:hover {
+            background-color: rgba(211, 18, 236);
+            border: 3px solid rgba(198, 10, 245);
+
+        }
+
+        .infoPallete {
+            background-color: rgba(198, 10, 245);
+            border: none;
+            border-radius: 7px;
+            padding: 1px 15px 1px 15px;
+            margin-bottom: 15px;
+            height: auto;
+        }
+
+        .infoPallete:hover {
+            background-color: rgb(211, 18, 236);
+            border: 3px solid rgb(211, 18, 236);
+        }
+
+        .title {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+
+
+        }
+
+        .body {
+            font-family: Verdana, Geneva, Tahoma, sans-serif;
+            text-align: justify;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="comments"
+        style="border: 1px solid rgb(0, 0, 0);padding:1rem;margin-bottom: 0.5rem; background-color: black; border-radius: 7px; width:70%; margin-left: 15%;">
+
+    </div>
+    <div>
+        <button id="load" class="button">Load Data</button>
+    </div>
+    <script>
+        $(document).ready(function () {
+            $("button").click(function () {
+                $.get("https://jsonplaceholder.typicode.com/posts", function (data) {
+                    
+                    data.forEach(func)
+                    async function func(item) {
+                        $('.comments').append(
+                            '<div id="' + item.id + '" class="infoPallete"><h3 class="title">' + item.title + '</h3><p class="body">' + item.body + '</p></div>'
+                        )
+                        //$('#'+item.id).slideDown(5000);
+                    }
+                
+                });
+            });
+        });
+
+    </script>
+</body>
+
+</html>
