@@ -12,22 +12,22 @@
             border-radius: 15px;
             width: 150px;
             height: 30px;
-            background-color: rgba(198, 10, 245);
-            border: none;
+            background-color:#d1d1d1;
+            border: 3px solid #1d1b1b;
             outline: none;
             cursor: pointer;
             margin-top: 10px;
             margin-left: 45%;
+            
         }
 
         .button:hover {
-            background-color: rgba(211, 18, 236);
-            border: 3px solid rgba(198, 10, 245);
-
+            background-color: #1d1b1b;
+            color: #ec4d37;
         }
 
         .infoPallete {
-            background-color: rgba(198, 10, 245);
+            background-color: #1d1b1b;
             border: none;
             border-radius: 7px;
             padding: 1px 15px 1px 15px;
@@ -36,26 +36,27 @@
         }
 
         .infoPallete:hover {
-            background-color: rgb(211, 18, 236);
-            border: 3px solid rgb(211, 18, 236);
+            background-color: #d1d1d1;
+            border: 3px solid #ec4d37;
         }
 
         .title {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
-
+            color: #ec4d37;
 
         }
 
         .body {
             font-family: Verdana, Geneva, Tahoma, sans-serif;
             text-align: justify;
+            color: #ec4d37;
         }
     </style>
 </head>
 
 <body>
     <div class="comments"
-        style="border: 1px solid rgb(0, 0, 0);padding:1rem;margin-bottom: 0.5rem; background-color: black; border-radius: 7px; width:70%; margin-left: 15%;">
+        style="border: 3px solid rgb(0, 0, 0);padding:1rem;margin-bottom: 0.5rem; background-color:#d1d1d1; border-radius: 7px; width:70%; margin-left: 15%;">
 
     </div>
     <div>
@@ -63,17 +64,21 @@
     </div>
     <script>
         $(document).ready(function () {
-            $("button").click(function () {
-                $.get("https://jsonplaceholder.typicode.com/posts", function (data) {
-                    
-                    data.forEach(func)
-                    async function func(item) {
-                        $('.comments').append(
-                            '<div id="' + item.id + '" class="infoPallete"><h3 class="title">' + item.title + '</h3><p class="body">' + item.body + '</p></div>'
-                        )
-                        //$('#'+item.id).slideDown(5000);
-                    }
-                
+
+            $.get("https://jsonplaceholder.typicode.com/posts", function (data) {
+
+                data.forEach(func)
+                function func(item) {
+                    $('.comments').append(
+                        '<div style="display:none;" id="' + item.id + '" class="infoPallete"><h3 class="title">' + item.title + '</h3><p class="body">' + item.body + '</p></div>'
+                    );
+                }
+
+                $("button").click(function () {
+                    $(".infoPallete").first().show(400, function showNext() {
+                        $(this).next(".infoPallete").show(400, showNext);
+                    });
+                    $("button").click(function () { $(".infoPallete").toggle() });
                 });
             });
         });
